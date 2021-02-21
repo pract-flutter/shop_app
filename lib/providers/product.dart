@@ -27,13 +27,13 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavorite() async {
+  Future<void> toggleFavorite(String token) async {
     final oldStatus = isFavorite;
     this.isFavorite = !isFavorite;
     notifyListeners();
 
     final url =
-        'https://hg-flutter-default-rtdb.firebaseio.com/products/$id.json';
+        'https://hg-flutter-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
 
     final res = await http.patch(url,
         body: json.encode({
