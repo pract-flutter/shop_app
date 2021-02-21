@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
               Auth(), // if ^3.0.0 using builder, use create method is best practice when initalize a new object
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          update: (ctx, auth, previousProducts) => Products(auth.token,
+          update: (ctx, auth, previousProducts) => Products(
+              auth.token,
+              auth.userId,
               previousProducts == null ? [] : previousProducts.items),
         ),
         ChangeNotifierProvider(

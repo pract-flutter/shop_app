@@ -35,7 +35,7 @@ class ProductItem extends StatelessWidget {
             color: Theme.of(context).accentColor,
             onPressed: () async {
               try {
-                await product.toggleFavorite(autData.token);
+                await product.toggleFavorite(autData.token, autData.userId);
               } catch (error) {
                 scaffold
                     .showSnackBar(SnackBar(content: Text('Update failed!')));
