@@ -20,16 +20,14 @@ class ProductDetailScreen extends StatelessWidget {
           false, // default is true, set to false it means that this widget just get data one time and don't care about Products provider has been update
     ).findById(productId);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(loadedProduct.title),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 300,
-              width: double.infinity,
-              child: Hero(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(loadedProduct.title),
+              background: Hero(
                 tag: loadedProduct.id,
                 child: Image.network(
                   loadedProduct.imageUrl,
@@ -37,27 +35,36 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              '\$${loadedProduct.price}',
-              style: TextStyle(color: Colors.grey, fontSize: 20),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              width: double.infinity,
-              child: Text(
-                loadedProduct.description,
-                textAlign: TextAlign.center,
-                softWrap: true,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              SizedBox(
+                height: 10,
               ),
-            ),
-          ],
-        ),
+              Text(
+                '\$${loadedProduct.price}',
+                style: TextStyle(color: Colors.grey, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                width: double.infinity,
+                child: Text(
+                  loadedProduct.description,
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                ),
+              ),
+              // hack to demo long content
+              SizedBox(
+                height: 800,
+              ),
+            ]),
+          ),
+        ],
       ),
     );
   }
